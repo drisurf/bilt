@@ -151,6 +151,11 @@ h1,h2,h3{font-family:'Archivo',sans-serif;line-height:1.04;letter-spacing:-.02em
 .sw:hover{transform:scale(1.08)}
 .sw.sel{box-shadow:0 0 0 2px var(--pink)}
 .vol-live{font-family:'Space Mono';font-size:15px;font-weight:700;color:var(--pink-ink)}
+.vol-adjust{display:flex;align-items:center;gap:14px}
+.vstep{width:42px;height:42px;border:1.5px solid var(--line);border-radius:11px;background:#fff;font-size:22px;font-family:'Archivo';font-weight:700;cursor:pointer;line-height:1;color:var(--ink);transition:border-color .12s,background .12s}
+.vstep:hover{border-color:var(--pink);background:#fff5fb}
+.vval{font-family:'Space Mono';font-size:19px;font-weight:700;min-width:86px;text-align:center}
+.vhint{font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.5}
 .b-summary{border-top:1px solid var(--line);padding-top:20px;margin-top:8px}
 .b-summary .price-row{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin-bottom:6px}
 .b-summary .price-row b{color:var(--ink);font-weight:600}
@@ -408,7 +413,11 @@ h1,h2,h3{font-family:'Archivo',sans-serif;line-height:1.04;letter-spacing:-.02em
             <button class="chip" data-model="double"><div class="cn">Double Double</div><div class="cs">Mid-length</div></button>
           </div>
         </div>
-        <div class="b-block"><div class="lbl"><span class="t">Size</span><span class="v" id="volTag">— L</span></div><div class="sizes" id="sizeRow"></div></div>
+        <div class="b-block"><div class="lbl"><span class="t">Size</span></div><div class="sizes" id="sizeRow"></div></div>
+        <div class="b-block"><div class="lbl"><span class="t">Volume</span><span class="v" id="volDefaultNote"></span></div>
+          <div class="vol-adjust"><button class="vstep" id="volMinus" aria-label="Less volume">−</button><span class="vval" id="volValue">— L</span><button class="vstep" id="volPlus" aria-label="More volume">+</button></div>
+          <div class="vhint">Auto-set from your size. Nudge it for more float or a tighter feel — the shaper builds to this.</div>
+        </div>
         <div class="b-block"><div class="lbl"><span class="t">Glassing</span></div><div class="glassrow" id="glassRow"></div></div>
         <div class="b-block"><div class="lbl"><span class="t">Fin setup</span></div><div class="fins" id="finRow"></div></div>
         <div class="b-block">
@@ -467,7 +476,7 @@ h1,h2,h3{font-family:'Archivo',sans-serif;line-height:1.04;letter-spacing:-.02em
 <section class="sec sec--alt">
   <div class="wrap">
     <div class="dris">
-      <div class="ph">[ Photo of Coach Dris — placeholder ]</div>
+      <div class="ph">[ Photo of Abdel — placeholder ]</div>
       <div>
         <div class="eyebrow" data-c="drisEyebrow"></div>
         <h2 data-c="drisHeading"></h2>
