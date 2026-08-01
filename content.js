@@ -31,7 +31,7 @@ window.CONTENT = {
     ["Red","#e23b3b"],["Orange","#f08a24"],["Yellow","#f5c518"],
     ["Green","#3dae5a"],["Blue","#2e6be6"],["Indigo","#4b3b9c"],
     ["Violet","#8e44ad"],["Black","#111111"],["Dark grey","#4a4a4a"],
-    ["White","#ffffff"]
+    ["Light grey","#ededed"],["White","#ffffff"]
   ],
 
   /* ---- TOP BAR + HERO ---- */

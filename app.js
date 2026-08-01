@@ -32,60 +32,19 @@ const FREQ_MOD={often:0.98,monthly:1.0,rare:1.04};
 
 const state={ability:null,weight:null,height:null,age:null,fitness:null,frequency:null,waves:null,goal:null,
   model:"double",size:null,fin:null,glassing:"standard",
-  deck:"#ffffff",bottom:"#ffffff",rails:"#ffffff"};
+  deck:"#ffffff",bottom:"#ffffff",rails:"#ededed"};
 const nameOf=m=>C[m+"Name"];
 const parseNum=s=>parseInt(String(s).replace(/[^\d]/g,""),10)||0;
 const money=n=>n.toLocaleString('en-US');
 const pctNum=s=>parseNum(s);
 
-/* ---------- vector board generator ---------- */
-const GEO = {
-  bigmac: { tail:"squash", samples:[[0.00,3],[0.06,13],[0.14,27],[0.24,41],[0.36,52],[0.46,57],[0.58,55],[0.70,47],[0.82,36],[0.90,28],[0.95,23]] },
-  whopper:{ tail:"swallow",samples:[[0.00,10],[0.07,24],[0.16,40],[0.28,54],[0.40,64],[0.50,65],[0.62,61],[0.74,53],[0.84,45],[0.91,41]] },
-  double: { tail:"round",  samples:[[0.00,12],[0.08,27],[0.18,41],[0.30,51],[0.44,58],[0.54,59],[0.66,55],[0.78,46],[0.88,34],[0.94,23]] }
-};
-const NY=30,BY=592,BH=BY-NY;
-function outlinePoints(model,cx){
-  const g=GEO[model],pts=[[cx,NY]];
-  g.samples.forEach(([t,hw])=>pts.push([cx+hw,NY+t*BH]));
-  const last=g.samples[g.samples.length-1],tw=last[1];
-  if(g.tail==="squash"){pts.push([cx+tw*0.95,BY-14],[cx+tw*0.55,BY],[cx,BY],[cx-tw*0.55,BY],[cx-tw*0.95,BY-14]);}
-  else if(g.tail==="swallow"){pts.push([cx+tw*0.92,BY-6],[cx+tw*0.5,BY],[cx,BY-30],[cx-tw*0.5,BY],[cx-tw*0.92,BY-6]);}
-  else{pts.push([cx+tw*0.55,BY-16],[cx,BY],[cx-tw*0.55,BY-16]);}
-  for(let i=g.samples.length-1;i>=0;i--){const[t,hw]=g.samples[i];pts.push([cx-hw,NY+t*BH]);}
-  return pts;
-}
-function smoothClosed(pts){
-  const n=pts.length,p=i=>pts[(i%n+n)%n];
-  let d=`M ${p(0)[0].toFixed(1)} ${p(0)[1].toFixed(1)} `;
-  for(let i=0;i<n;i++){const p0=p(i-1),p1=p(i),p2=p(i+1),p3=p(i+2);
-    const c1x=p1[0]+(p2[0]-p0[0])/6,c1y=p1[1]+(p2[1]-p0[1])/6,c2x=p2[0]-(p3[0]-p1[0])/6,c2y=p2[1]-(p3[1]-p1[1])/6;
-    d+=`C ${c1x.toFixed(1)} ${c1y.toFixed(1)} ${c2x.toFixed(1)} ${c2y.toFixed(1)} ${p2[0].toFixed(1)} ${p2[1].toFixed(1)} `;}
-  return d+"Z";
-}
-function finsSVG(cx,fins){
-  const y=BY-70;
-  const fin=(x,s=1)=>`<path d="M ${x} ${y} q ${6*s} ${10*s} ${2*s} ${26*s} q ${-2*s} ${4*s} ${-8*s} ${2*s} q ${-3*s} ${-14*s} ${4*s} ${-28*s} z" fill="#1c1c1c"/>`;
-  if(fins==="Twin")return fin(cx-22)+fin(cx+22);
-  if(fins==="Quad")return fin(cx-30,.8)+fin(cx+30,.8)+fin(cx-15,.68)+fin(cx+15,.68);
-  if(fins==="2+1")return fin(cx-26,.8)+fin(cx+26,.8)+`<rect x="${cx-3}" y="${y-6}" width="6" height="42" rx="3" fill="#1c1c1c"/>`;
-  return fin(cx-24,.85)+fin(cx+24,.85)+fin(cx,.85);
-}
-function buildBoardSVG(model,c,fins){
-  const cxD=150,cxB=450;
-  const pD=smoothClosed(outlinePoints(model,cxD)),pB=smoothClosed(outlinePoints(model,cxB));
-  const base=p=>`<path d="${p}" fill="none" stroke="#d4d4d4" stroke-width="11" stroke-linejoin="round"/>`;
-  const stringer=x=>`<line x1="${x}" y1="${NY+10}" x2="${x}" y2="${BY-10}" stroke="${c.rails}" stroke-width="1.3" opacity=".45"/>`;
-  const logo=`<text x="0" y="0" text-anchor="middle" font-family="Archivo,Arial" font-weight="900" font-size="30" fill="${c.rails}" opacity=".8" transform="translate(${cxD},${NY+160}) rotate(-90)">B</text>`;
-  return `<svg viewBox="0 0 600 660" style="width:100%;height:100%" xmlns="http://www.w3.org/2000/svg">
-  <defs><filter id="bsh" x="-25%" y="-25%" width="150%" height="150%"><feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="#000" flood-opacity="0.12"/></filter></defs>
-  <g filter="url(#bsh)">
-    ${base(pD)}<path d="${pD}" fill="${c.deck}" stroke="${c.rails}" stroke-width="7" stroke-linejoin="round"/>${stringer(cxD)}${logo}
-    ${base(pB)}<path d="${pB}" fill="${c.bottom}" stroke="${c.rails}" stroke-width="7" stroke-linejoin="round"/>${stringer(cxB)}${finsSVG(cxB,fins)}
-  </g>
-  <text x="150" y="646" text-anchor="middle" font-family="'Space Mono',monospace" font-size="12" fill="#a2a2a2">DECK</text>
-  <text x="450" y="646" text-anchor="middle" font-family="'Space Mono',monospace" font-size="12" fill="#a2a2a2">BOTTOM</text>
-</svg>`;
+/* ---------- board rendering: your Illustrator art (deck+bottom views drawn), recolour DECK/BOTTOM/RAIL ---------- */
+const ART = window.BOARD_ART || {};
+const DEFAULT_RAIL = "#ededed";   // light grey rail = default (colouring it costs +500)
+function buildBoardSVG(model,c){
+  const b=ART[model]; if(!b) return "";
+  const art=b.art.split("{{DECK}}").join(c.deck).split("{{BOTTOM}}").join(c.bottom).split("{{RAIL}}").join(c.rails);
+  return `<svg viewBox="${b.vb}" style="width:100%;height:100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><filter id="bsh" x="-12%" y="-6%" width="124%" height="112%"><feDropShadow dx="0" dy="9" stdDeviation="13" flood-color="#000" flood-opacity="0.10"/></filter></defs><g filter="url(#bsh)">${art}</g></svg>`;
 }
 
 /* ---------- hydrate ---------- */
@@ -105,20 +64,31 @@ function hydrate(){
 }
 
 /* ---------- pricing ---------- */
-const isColoured=()=>[state.deck,state.bottom,state.rails].some(h=>h.toLowerCase()!=="#ffffff");
+function regionsColoured(){
+  return {
+    deck:  state.deck.toLowerCase()!=="#ffffff",
+    bottom:state.bottom.toLowerCase()!=="#ffffff",
+    rails: state.rails.toLowerCase()!==DEFAULT_RAIL
+  };
+}
+const isColoured=()=>{const r=regionsColoured();return r.deck||r.bottom||r.rails;};
 function totals(){
   const base=parseNum(C.priceFrom);
-  const tint=isColoured()?(+C.colourTintCharge||0):0;
+  const per=+C.colourTintCharge||0;
+  const r=regionsColoured();
+  const tint=((r.deck?1:0)+(r.bottom?1:0)+(r.rails?1:0))*per;
   const glass=(GLASS.find(g=>g.id===state.glassing)||GLASS[0]).charge||0;
   const total=base+tint+glass;
   const deposit=Math.round(total*pctNum(C.depositPct)/100);
-  return {base,tint,glass,total,deposit,balance:total-deposit};
+  return {base,per,r,tint,glass,total,deposit,balance:total-deposit};
 }
 function applyTotals(){
   const t=totals(),cur=C.currency,gl=GLASS.find(g=>g.id===state.glassing).label;
   const rows=[];
   rows.push(`<div class="price-row"><span>Board</span><b>${money(t.base)} ${cur}</b></div>`);
-  rows.push(`<div class="price-row"><span>Colour tint</span><b>${t.tint?('+'+money(t.tint)+' '+cur):'—'}</b></div>`);
+  if(t.r.deck)  rows.push(`<div class="price-row"><span>Deck colour</span><b>+${money(t.per)} ${cur}</b></div>`);
+  if(t.r.bottom)rows.push(`<div class="price-row"><span>Bottom colour</span><b>+${money(t.per)} ${cur}</b></div>`);
+  if(t.r.rails) rows.push(`<div class="price-row"><span>Rails colour</span><b>+${money(t.per)} ${cur}</b></div>`);
   rows.push(`<div class="price-row"><span>Glassing · ${gl}</span><b>${t.glass?('+'+money(t.glass)+' '+cur):'Included'}</b></div>`);
   rows.push(`<div class="price-row total"><span>Total</span><b>${money(t.total)} ${cur}</b></div>`);
   rows.push(`<div class="price-row"><span>Deposit (${C.depositPct}) today</span><b>${money(t.deposit)} ${cur}</b></div>`);
@@ -228,7 +198,7 @@ function renderLevel(model){const a=ATTR[model];
   const bars=Object.entries(a.bars).map(([k,v])=>'<div class="bar-row"><span class="bl">'+k+'</span>'+segBar(v,5)+'</div>').join('');
   setHtml('levelBlock','<div class="built">Built for · <b>'+a.builtFor+'</b></div><div class="lvl-block">'+rangeMeter('Wave size',WAVE_LABELS,a.wave)+rangeMeter('Skill level',SKILL_LABELS,a.skill)+'</div><div class="bars">'+bars+'</div>');}
 function selectModelChip(){document.querySelectorAll('#modelRow .chip').forEach(c=>c.classList.toggle('sel',c.dataset.model===state.model));}
-function renderBoard(){document.getElementById('boardStage').innerHTML=buildBoardSVG(state.model,{deck:state.deck,bottom:state.bottom,rails:state.rails},state.fin);}
+function renderBoard(){document.getElementById('boardStage').innerHTML=buildBoardSVG(state.model,{deck:state.deck,bottom:state.bottom,rails:state.rails});}
 function wireBuilder(){
   document.querySelectorAll('#modelRow .chip').forEach(c=>{c.onclick=()=>{state.model=c.dataset.model;
     const sizes=MODELS[state.model].sizes;if(!sizes.find(x=>x[0]===state.size))state.size=sizes[Math.floor(sizes.length/2)][0];syncBuilder();};});
@@ -243,7 +213,7 @@ function syncSummary(){
   const v=volFor(state.model,state.size);
   setTxt('sumModel',nameOf(state.model));setTxt('sumSize',state.size||'—');setTxt('sumVol',v?(v+' L'):'—');
   setTxt('sumFin',state.fin||'—');setTxt('sumGlass',GLASS.find(g=>g.id===state.glassing).label);
-  const colTxt=isColoured()?('deck '+state.deck+' · bottom '+state.bottom+' · rails '+state.rails):'White / clear';
+  const colTxt='deck '+state.deck+' · bottom '+state.bottom+' · rails '+state.rails;
   setTxt('sumColor',colTxt);
   const spec=[nameOf(state.model),state.size,v+'L',state.fin,GLASS.find(g=>g.id===state.glassing).label+' glass',colTxt,'Total '+money(totals().total)+' '+C.currency].join(' · ');
   document.getElementById('specField').value=spec;
