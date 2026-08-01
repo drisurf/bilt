@@ -24,7 +24,7 @@ window.CONTENT = {
   /* ---- CONTACT ---- */
   whatsapp:   "https://wa.me/212656578306",   // Abdel's WhatsApp
   orderEmail: "you@email.com",                // your email (also set inside the Google Sheet script)
-  ordersEndpoint: "",                         // paste your Google Sheet Web App URL here — see ORDERS-SETUP.md
+  ordersEndpoint: "https://script.google.com/macros/s/AKfycbyxcwYyz0nS6UmE7h8E_p0FfVh_lCH19_RL2BQGjssnQLkCbz9QeAcY_N-38y0VHbk7/exec",
 
   /* ---- COLOUR PALETTE (add/remove/change freely: "Name","#hex") ----
      The customer also gets a full colour picker for any colour. */
