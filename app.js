@@ -41,9 +41,18 @@ const pctNum=s=>parseNum(s);
 /* ---------- board rendering: your Illustrator art (deck+bottom views drawn), recolour DECK/BOTTOM/RAIL ---------- */
 const ART = window.BOARD_ART || {};
 const DEFAULT_RAIL = "#ededed";   // light grey rail = default (colouring it costs +500)
-function buildBoardSVG(model,c){
+function removeCenterFin(art){
+  const re=/<path\b[^>]*fill="#595959"[^>]*\/>/gi;
+  const matches=art.match(re);
+  if(!matches||matches.length<3) return art;
+  const xs=matches.map(m=>{const mm=m.match(/\bd="M\s*(-?\d+\.?\d*)/i);return mm?parseFloat(mm[1]):0;});
+  const idx=[...xs.keys()].sort((a,b)=>xs[a]-xs[b])[Math.floor(xs.length/2)];
+  return art.replace(matches[idx],"");
+}
+function buildBoardSVG(model,c,fins){
   const b=ART[model]; if(!b) return "";
-  const art=b.art.split("{{DECK}}").join(c.deck).split("{{BOTTOM}}").join(c.bottom).split("{{RAIL}}").join(c.rails);
+  let art=b.art.split("{{DECK}}").join(c.deck).split("{{BOTTOM}}").join(c.bottom).split("{{RAIL}}").join(c.rails);
+  if(model==="double" && fins==="Twin") art=removeCenterFin(art);
   return `<svg viewBox="${b.vb}" style="width:100%;height:100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><filter id="bsh" x="-12%" y="-6%" width="124%" height="112%"><feDropShadow dx="0" dy="9" stdDeviation="13" flood-color="#000" flood-opacity="0.10"/></filter></defs><g filter="url(#bsh)">${art}</g></svg>`;
 }
 
@@ -169,7 +178,7 @@ function renderSizes(){const row=document.getElementById('sizeRow');row.innerHTM
 function renderFins(){const m=MODELS[state.model];if(!m.fins.includes(state.fin))state.fin=m.fins[0];
   const row=document.getElementById('finRow');row.innerHTML='';
   m.fins.forEach(f=>{const b=document.createElement('button');b.className='fin';b.textContent=f;if(f===state.fin)b.classList.add('sel');
-    b.onclick=()=>{state.fin=f;renderFins();renderBoard();syncSummary();};row.appendChild(b);});}
+    b.onclick=()=>{state.fin=f;renderFins();renderBoard();renderLevel(state.model,state.fin);syncSummary();};row.appendChild(b);});}
 function renderGlass(){const row=document.getElementById('glassRow');row.innerHTML='';
   GLASS.forEach(g=>{const b=document.createElement('button');b.className='glass'+(g.id===state.glassing?' sel':'');
     b.innerHTML='<span class="gl-name">'+g.label+(g.charge?(' · +'+money(g.charge)+' '+C.currency):'')+'</span><span class="gl-desc">'+g.desc+'</span>';
@@ -194,11 +203,20 @@ function updateVol(){const v=volFor(state.model,state.size);setHtml('volTag',v?(
 function segBar(val,max){let s='<span class="seg">';for(let i=0;i<max;i++)s+='<i class="'+(i<val?'on':'')+'"></i>';return s+'</span>';}
 function rangeMeter(t,labels,rng){const n=labels.length,l=rng[0]/(n-1)*100,r=rng[1]/(n-1)*100;
   return '<div class="meter"><div class="mh">'+t+'</div><div class="track"><span class="band" style="left:'+l+'%;width:'+(r-l)+'%"></span></div><div class="ticks"><span>'+labels[0]+'</span><span>'+labels[n-1]+'</span></div></div>';}
-function renderLevel(model){const a=ATTR[model];
-  const bars=Object.entries(a.bars).map(([k,v])=>'<div class="bar-row"><span class="bl">'+k+'</span>'+segBar(v,5)+'</div>').join('');
-  setHtml('levelBlock','<div class="built">Built for · <b>'+a.builtFor+'</b></div><div class="lvl-block">'+rangeMeter('Wave size',WAVE_LABELS,a.wave)+rangeMeter('Skill level',SKILL_LABELS,a.skill)+'</div><div class="bars">'+bars+'</div>');}
+function finBars(model,fins){
+  const base=ATTR[model].bars;
+  if(model!=="double") return base;
+  return fins==="Twin"
+    ? {Paddle:5,Speed:4,Flow:5,Control:3,Response:4,Forgiving:4}   // twin: looser, faster, skatier
+    : {Paddle:5,Speed:3,Flow:4,Control:5,Response:3,Forgiving:5};  // 2+1: more drive, hold, control
+}
+function renderLevel(model,fins){const a=ATTR[model];
+  const b=finBars(model,fins);
+  const built=a.builtFor+(model==="double"?(" · "+(fins==="Twin"?"twin fin":"2+1 fin")):"");
+  const bars=Object.entries(b).map(([k,v])=>'<div class="bar-row"><span class="bl">'+k+'</span>'+segBar(v,5)+'</div>').join('');
+  setHtml('levelBlock','<div class="built">Built for · <b>'+built+'</b></div><div class="lvl-block">'+rangeMeter('Wave size',WAVE_LABELS,a.wave)+rangeMeter('Skill level',SKILL_LABELS,a.skill)+'</div><div class="bars">'+bars+'</div>');}
 function selectModelChip(){document.querySelectorAll('#modelRow .chip').forEach(c=>c.classList.toggle('sel',c.dataset.model===state.model));}
-function renderBoard(){document.getElementById('boardStage').innerHTML=buildBoardSVG(state.model,{deck:state.deck,bottom:state.bottom,rails:state.rails});}
+function renderBoard(){document.getElementById('boardStage').innerHTML=buildBoardSVG(state.model,{deck:state.deck,bottom:state.bottom,rails:state.rails},state.fin);}
 function wireBuilder(){
   document.querySelectorAll('#modelRow .chip').forEach(c=>{c.onclick=()=>{state.model=c.dataset.model;
     const sizes=MODELS[state.model].sizes;if(!sizes.find(x=>x[0]===state.size))state.size=sizes[Math.floor(sizes.length/2)][0];syncBuilder();};});
@@ -207,7 +225,7 @@ function wireBuilder(){
 function syncBuilder(){
   if(!state.size)state.size=MODELS[state.model].sizes[Math.floor(MODELS[state.model].sizes.length/2)][0];
   document.querySelectorAll('#modelRow .chip .cn').forEach(el=>{el.textContent=nameOf(el.parentElement.dataset.model);});
-  selectModelChip();renderSizes();renderGlass();renderFins();renderColours();updateVol();renderLevel(state.model);renderBoard();applyTotals();syncSummary();
+  selectModelChip();renderSizes();renderGlass();renderFins();renderColours();updateVol();renderLevel(state.model,state.fin);renderBoard();applyTotals();syncSummary();
 }
 function syncSummary(){
   const v=volFor(state.model,state.size);
