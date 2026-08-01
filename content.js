@@ -22,8 +22,9 @@ window.CONTENT = {
   depositPct:            "50%",     // deposit share of the total
 
   /* ---- CONTACT ---- */
-  whatsapp:   "https://wa.me/2126XXXXXXXX",   // <-- your WhatsApp link
-  orderEmail: "you@email.com",                // where you want order alerts (also set in Netlify)
+  whatsapp:   "https://wa.me/212656578306",   // Abdel's WhatsApp
+  orderEmail: "you@email.com",                // your email (also set inside the Google Sheet script)
+  ordersEndpoint: "",                         // paste your Google Sheet Web App URL here — see ORDERS-SETUP.md
 
   /* ---- COLOUR PALETTE (add/remove/change freely: "Name","#hex") ----
      The customer also gets a full colour picker for any colour. */
@@ -141,6 +142,24 @@ window.CONTENT = {
   step1: "Order & deposit",
   step2: "Jason shapes your board",
   step3: "You surf — in {buildTime}",
+
+  /* ---- FAQ (edit questions/answers freely; add or remove items) ---- */
+  faqEyebrow: "FAQ",
+  faqHeading: "Questions, answered.",
+  faqs: [
+    { q: "How long until I get my board?",
+      a: "Every board is shaped to order, so give it about 2–3 months from the day your deposit clears. We keep you posted as it moves through shaping, glassing, and shipping to Morocco." },
+    { q: "How does payment work?",
+      a: "You pay a 50% deposit to start the build and the balance on delivery. Once you reserve, we send you a secure payment link for the deposit — nothing is charged automatically." },
+    { q: "I'm not sure which board or size suits me. Can you help?",
+      a: "Yes. The finder matches you to a shape and volume from your weight, level, and the waves you surf. Still unsure? Message Abdel on WhatsApp and we'll dial it in together before anything is built." },
+    { q: "Can I really choose any colour?",
+      a: "You can. Deck, bottom, and rails are each fully customisable — pick a swatch or any colour you like. A plain white board is standard; each area you colour adds 500 MAD." },
+    { q: "Are these boards made for Moroccan waves?",
+      a: "That's exactly the point. The three shapes cover everything from small, soft beach breaks to punchier points — the same waves we surf here every day. Tell us your home break and we'll steer you to the right one." },
+    { q: "Can I change the volume or dimensions?",
+      a: "The builder suggests a volume from your size, and you can nudge it up or down for more float or a tighter feel. Need fully custom dimensions? Add a note when you reserve, or message Abdel and the shaper will work to your spec." }
+  ],
 
   /* ---- FOOTER ---- */
   footerText: "Bilt Morocco · custom surfboards · [contact placeholder]"

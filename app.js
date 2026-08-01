@@ -70,6 +70,15 @@ function hydrate(){
   const wi=document.getElementById('wideImg');
   if(wi)wi.style.backgroundImage="url('"+ (C.wideImage||"images/wave.jpg") +"')";
   document.querySelectorAll('.js-wa').forEach(a=>a.href=C.whatsapp);
+  const fq=document.getElementById('faqList');
+  if(fq && C.faqs){
+    fq.innerHTML=C.faqs.map(f=>'<div class="faq-item"><button class="faq-q" aria-expanded="false"><span>'+f.q+'</span><span class="faq-ic">+</span></button><div class="faq-a"><p>'+f.a+'</p></div></div>').join('');
+    fq.querySelectorAll('.faq-q').forEach(btn=>btn.addEventListener('click',()=>{
+      const item=btn.parentElement, open=item.classList.toggle('open');
+      btn.setAttribute('aria-expanded',open); btn.querySelector('.faq-ic').textContent=open?'−':'+';
+    }));
+  }
+
   setHtml('depositNote',tok(C.depositNote)+' Prefer to talk first? <a class="js-wa" style="color:var(--pink-ink);font-weight:600" href="'+C.whatsapp+'">Message Abdel on WhatsApp</a>.');
 }
 
@@ -248,11 +257,29 @@ function syncSummary(){
 }
 
 /* ---------- order ---------- */
+function orderPayload(){
+  const form=document.getElementById('orderForm');
+  const get=n=>{const el=form.querySelector('[name="'+n+'"]');return el?el.value:'';};
+  const t=totals(), g=GLASS.find(x=>x.id===state.glassing).label;
+  return {
+    name:get('name'), whatsapp:get('whatsapp'), email:get('email'), notes:get('notes'),
+    model:nameOf(state.model), size:state.size||'', volume:(state.volume!=null?state.volume+' L':''),
+    glassing:g, colours:'deck '+colourName(state.deck)+', bottom '+colourName(state.bottom)+', rails '+colourName(state.rails),
+    total:money(t.total)+' '+C.currency, deposit:money(t.deposit)+' '+C.currency, balance:money(t.balance)+' '+C.currency,
+    spec:document.getElementById('specField').value
+  };
+}
 function wireOrder(){
   const form=document.getElementById('orderForm');
   form.addEventListener('submit',e=>{e.preventDefault();syncSummary();
-    const body=new URLSearchParams(new FormData(form)).toString();
-    fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body}).then(showConfirm).catch(showConfirm);});
+    const ep=C.ordersEndpoint;
+    if(ep){
+      fetch(ep,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(orderPayload())}).then(showConfirm).catch(showConfirm);
+    }else{
+      const body=new URLSearchParams(new FormData(form)).toString();
+      fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body}).then(showConfirm).catch(showConfirm);
+    }
+  });
 }
 function showConfirm(){
   const t=totals(),cur=C.currency,box=document.getElementById('confirmBox');
