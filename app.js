@@ -20,6 +20,7 @@ const ATTR={
   double:{builtFor:"Mid-length · all-rounder",wave:[1,6],skill:[0,5],bars:{Paddle:5,Speed:3,Flow:5,Control:4,Response:3,Forgiving:5}}
 };
 const COLORS = C.colours;
+const colourName=h=>{const f=COLORS.find(c=>c[1].toLowerCase()===String(h).toLowerCase());return f?f[0].toLowerCase():h;};
 const GLASS = [
   {id:"standard",label:"Standard",desc:"4+4 / 4 · light and lively",charge:C.glassingStandardCharge},
   {id:"strong",  label:"Strong",  desc:"6+4 / 6 · more durable, a touch heavier",charge:C.glassingStrongCharge},
@@ -32,7 +33,7 @@ const FREQ_MOD={often:0.98,monthly:1.0,rare:1.04};
 
 const state={ability:null,weight:null,height:null,age:null,fitness:null,frequency:null,waves:null,goal:null,
   model:"double",size:null,fin:null,glassing:"standard",
-  deck:"#ffffff",bottom:"#ffffff",rails:"#ededed"};
+  deck:"#ffffff",bottom:"#ffffff",rails:"#ffffff"};
 const nameOf=m=>C[m+"Name"];
 const parseNum=s=>parseInt(String(s).replace(/[^\d]/g,""),10)||0;
 const money=n=>n.toLocaleString('en-US');
@@ -40,7 +41,7 @@ const pctNum=s=>parseNum(s);
 
 /* ---------- board rendering: your Illustrator art (deck+bottom views drawn), recolour DECK/BOTTOM/RAIL ---------- */
 const ART = window.BOARD_ART || {};
-const DEFAULT_RAIL = "#ededed";   // light grey rail = default (colouring it costs +500)
+const DEFAULT_RAIL = "#ffffff";   // white = default, never charged
 function removeCenterFin(art){
   const re=/<path\b[^>]*fill="#595959"[^>]*\/>/gi;
   const matches=art.match(re);
@@ -231,7 +232,7 @@ function syncSummary(){
   const v=volFor(state.model,state.size);
   setTxt('sumModel',nameOf(state.model));setTxt('sumSize',state.size||'—');setTxt('sumVol',v?(v+' L'):'—');
   setTxt('sumFin',state.fin||'—');setTxt('sumGlass',GLASS.find(g=>g.id===state.glassing).label);
-  const colTxt='deck '+state.deck+' · bottom '+state.bottom+' · rails '+state.rails;
+  const colTxt='deck '+colourName(state.deck)+' · bottom '+colourName(state.bottom)+' · rails '+colourName(state.rails);
   setTxt('sumColor',colTxt);
   const spec=[nameOf(state.model),state.size,v+'L',state.fin,GLASS.find(g=>g.id===state.glassing).label+' glass',colTxt,'Total '+money(totals().total)+' '+C.currency].join(' · ');
   document.getElementById('specField').value=spec;
