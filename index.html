@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bilt Morocco — Custom Surfboards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0b0b0c;--muted:#6c6c72;--line:#e8e8e6;--bg:#fff;--bg2:#f7f7f5;--pink:#f5009b;--pink-ink:#c4007c;--yellow:#d9f000;--radius:14px;--maxw:1120px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.eyebrow{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+h1,h2,h3{font-family:'Archivo',sans-serif;line-height:1.04;letter-spacing:-.02em}
+.hdr{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--line)}
+.hdr-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img{height:22px;width:auto}
+.brand span{font-family:'Archivo';font-weight:800;font-size:14px;letter-spacing:.02em}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:'Archivo';font-weight:700;font-size:15px;padding:13px 22px;border-radius:999px;border:1px solid transparent;cursor:pointer;transition:transform .12s,background .15s,color .15s;white-space:nowrap}
+.btn:active{transform:translateY(1px)}
+.btn-pink{background:var(--pink);color:#fff}
+.btn-pink:hover{background:var(--pink-ink)}
+.btn-ghost{background:#fff;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{border-color:#c9c9c5}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{background:#26262a}
+.hdr .btn{padding:10px 18px;font-size:14px}
+.hero{padding:74px 0 40px}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hero h1{font-weight:900;font-size:clamp(38px,6vw,72px)}
+.hero .lead{font-size:clamp(17px,2vw,20px);color:var(--muted);margin:22px 0 30px;max-width:30ch}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+.hero-media{position:relative}
+.hero-media img{margin:0 auto;max-height:560px;width:auto;filter:drop-shadow(0 30px 50px rgba(0,0,0,.14))}
+.hero-tag{position:absolute;left:0;bottom:14px;font-family:'Space Mono',monospace;font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+.trust-row{display:flex;gap:26px;flex-wrap:wrap;align-items:center;padding:20px 0 4px;color:var(--muted);font-size:13px}
+.trust-row b{color:var(--ink);font-weight:600}
+.sec{padding:76px 0;border-top:1px solid var(--line)}
+.sec--alt{background:var(--bg2)}
+.sec-head{max-width:62ch;margin-bottom:40px}
+.sec-head h2{font-weight:800;font-size:clamp(28px,3.6vw,44px);margin:14px 0 0}
+.sec-head p{color:var(--muted);font-size:17px;margin-top:16px}
+.wide{width:100%;min-height:clamp(300px,46vw,560px);background-size:cover;background-position:center;background-color:#dcdcda;border-top:1px solid var(--line)}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.why-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+.why-card h3{font-size:19px;font-weight:700;margin-bottom:8px}
+.why-card p{color:var(--muted);font-size:15px}
+.why-num{font-family:'Space Mono';color:var(--pink);font-size:13px;font-weight:700}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.board{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
+.board .pic{background:var(--bg2);aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;padding:22px}
+.board .pic img{max-height:100%;width:auto;object-fit:contain}
+.board .body{padding:22px;display:flex;flex-direction:column;gap:8px;flex:1}
+.board .kick{font-family:'Space Mono';font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--pink)}
+.board h3{font-size:22px;font-weight:800}
+.board p{color:var(--muted);font-size:14.5px;flex:1}
+.board .spec{font-family:'Space Mono';font-size:12px;color:var(--ink);border-top:1px solid var(--line);padding-top:12px;margin-top:4px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+.ph{background:var(--bg2);border:1px dashed #d5d5d1;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;color:#a6a6a2;font-family:'Space Mono';font-size:12px;text-align:center;padding:20px;min-height:120px}
+.craft-list{margin-top:18px;display:flex;flex-direction:column;gap:12px}
+.craft-list div{display:flex;gap:12px;font-size:15px}
+.craft-list .k{font-family:'Space Mono';color:var(--pink);font-size:12px;min-width:74px;padding-top:2px}
+.craft-list .v{color:var(--muted)}
+.craft-list .v b{color:var(--ink);font-weight:600}
+.shaped{margin-top:34px}
+.shaped .lbl{font-family:'Space Mono';font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.logos{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.logo-img{border:1px solid var(--line);border-radius:8px;padding:8px 14px;background:#fff;display:flex;align-items:center}
+.logo-img img{height:34px;width:auto;display:block}
+.riders{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.rider{text-align:center}
+.rider .av{aspect-ratio:1;border-radius:14px;background:var(--bg2);border:1px dashed #d5d5d1;display:flex;align-items:center;justify-content:center;color:#b4b4b0;font-family:'Space Mono';font-size:11px;margin-bottom:12px}
+.rider .nm{font-weight:600;font-size:15px}
+.rider .rl{color:var(--muted);font-size:13px}
+.finder{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.finder-top{display:flex;align-items:center;justify-content:space-between;padding:22px 26px;border-bottom:1px solid var(--line)}
+.finder-top .step{font-family:'Space Mono';font-size:12px;color:var(--muted)}
+.progress{height:4px;background:var(--line);border-radius:999px;overflow:hidden;flex:1;margin-left:20px;max-width:260px}
+.progress i{display:block;height:100%;background:var(--pink);width:20%;transition:width .35s}
+.finder-body{padding:34px 26px 30px}
+.q{display:none}
+.q.on{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.q h3{font-size:clamp(22px,3vw,30px);font-weight:800;margin-bottom:6px}
+.q .sub{color:var(--muted);margin-bottom:24px}
+.opts{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.opts.optslim{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:1.5px solid var(--line);border-radius:12px;padding:18px;cursor:pointer;transition:border-color .12s,background .12s;background:#fff;display:flex;flex-direction:column;gap:3px;text-align:left;font:inherit;color:inherit}
+.opt:hover{border-color:#c3c3bf}
+.opt.sel{border-color:var(--pink);background:#fff5fb}
+.opt.slim{padding:11px 15px;flex:0 0 auto}
+.opt .t{font-weight:600;font-size:16px}
+.opt.slim .t{font-size:14px}
+.opt .d{color:var(--muted);font-size:13px}
+.mini{margin-bottom:18px}
+.mini-h{font-family:'Space Mono';font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:420px}
+.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+.field input{width:100%;font:inherit;padding:13px 14px;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+.field input:focus{outline:none;border-color:var(--pink)}
+.finder-nav{display:flex;justify-content:space-between;align-items:center;margin-top:26px}
+.link-btn{background:none;border:none;font:inherit;color:var(--muted);cursor:pointer;font-size:14px}
+.link-btn:hover{color:var(--ink)}
+.result{display:none;padding:34px 26px}
+.result.on{display:block}
+.result .banner{font-family:'Space Mono';font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--pink);margin-bottom:10px}
+.result h3{font-size:clamp(26px,4vw,40px);font-weight:900;margin-bottom:6px}
+.result .rec-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:26px;align-items:center;margin-top:22px}
+.rec-pic{background:var(--bg2);border-radius:14px;aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;padding:20px}
+.rec-pic img{max-height:100%;width:auto}
+.rec-why{color:var(--muted);font-size:16px;margin-bottom:18px}
+.rec-stamp{display:inline-flex;flex-direction:column;gap:2px;font-family:'Space Mono';border:1px solid var(--ink);border-radius:12px;padding:16px 20px;margin-bottom:20px}
+.rec-stamp .big{font-size:22px;font-weight:700}
+.rec-stamp .sm{font-size:12px;color:var(--muted)}
+.rec-actions{display:flex;gap:12px;flex-wrap:wrap}
+.builder{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+.b-pic{position:sticky;top:88px;background:var(--bg2);border-radius:18px;aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;padding:20px}
+.b-pic svg{width:100%;height:100%}
+.b-block{margin-bottom:26px}
+.b-block .lbl{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.b-block .lbl .t{font-family:'Space Mono';font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.b-block .lbl .v{font-family:'Space Mono';font-size:13px;color:var(--ink)}
+.model-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.chip{border:1.5px solid var(--line);border-radius:11px;padding:13px 8px;text-align:center;cursor:pointer;background:#fff;font:inherit;transition:border-color .12s,background .12s}
+.chip:hover{border-color:#c3c3bf}
+.chip.sel{border-color:var(--pink);background:#fff5fb}
+.chip .cn{font-weight:700;font-size:14px}
+.chip .cs{font-family:'Space Mono';font-size:11px;color:var(--muted)}
+.sizes,.fins{display:flex;flex-wrap:wrap;gap:8px}
+.sz,.fin{border:1.5px solid var(--line);border-radius:9px;padding:10px 13px;cursor:pointer;background:#fff;font-family:'Space Mono';font-size:13px;transition:border-color .12s,background .12s}
+.sz:hover,.fin:hover{border-color:#c3c3bf}
+.sz.sel,.fin.sel{border-color:var(--pink);background:#fff5fb;color:var(--pink-ink)}
+.glassrow{display:flex;flex-direction:column;gap:8px}
+.glass{border:1.5px solid var(--line);border-radius:11px;padding:12px 14px;background:#fff;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:2px;font:inherit;transition:border-color .12s,background .12s}
+.glass:hover{border-color:#c3c3bf}
+.glass.sel{border-color:var(--pink);background:#fff5fb}
+.gl-name{font-weight:600;font-size:14px}
+.gl-desc{font-family:'Space Mono';font-size:11px;color:var(--muted)}
+.region{margin-bottom:16px}
+.region .rl{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.region .rl .t{font-family:'Space Mono';font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.picker{width:42px;height:30px;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:pointer;padding:2px}
+.swatches{display:flex;flex-wrap:wrap;gap:9px}
+.sw{width:30px;height:30px;border-radius:50%;cursor:pointer;border:2px solid #fff;box-shadow:0 0 0 1.5px var(--line);transition:box-shadow .12s,transform .1s}
+.sw:hover{transform:scale(1.08)}
+.sw.sel{box-shadow:0 0 0 2px var(--pink)}
+.vol-live{font-family:'Space Mono';font-size:15px;font-weight:700;color:var(--pink-ink)}
+.b-summary{border-top:1px solid var(--line);padding-top:20px;margin-top:8px}
+.b-summary .price-row{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin-bottom:6px}
+.b-summary .price-row b{color:var(--ink);font-weight:600}
+.b-summary .price-row.total{border-top:1px solid var(--line);margin-top:8px;padding-top:12px;color:var(--ink);font-weight:700}
+.b-summary .price-row.total b{font-family:'Space Mono'}
+.built{font-family:'Space Mono';font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:28px}
+.built b{color:var(--ink)}
+.lvl-block{display:grid;grid-template-columns:1fr 1fr;gap:44px;margin-bottom:40px}
+.meter .mh{font-family:'Space Mono';font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.track{position:relative;height:12px;border-radius:999px;background:var(--line)}
+.track .band{position:absolute;top:0;bottom:0;background:var(--pink);border-radius:999px}
+.ticks{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:10px;font-family:'Space Mono'}
+.bars{display:grid;grid-template-columns:1fr 1fr;gap:16px 44px}
+.bar-row{display:grid;grid-template-columns:86px 1fr;gap:14px;align-items:center}
+.bar-row .bl{font-family:'Space Mono';font-size:12px;color:var(--ink)}
+.seg{display:flex;gap:5px}
+.seg i{height:9px;flex:1;border-radius:3px;background:var(--line)}
+.seg i.on{background:var(--ink)}
+.order-grid{display:grid;grid-template-columns:1fr .9fr;gap:44px;align-items:start}
+.form .field{margin-bottom:16px}
+.form .field.full{grid-column:1/-1}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.summary-card{background:var(--bg2);border:1px solid var(--line);border-radius:18px;padding:28px}
+.summary-card h3{font-size:20px;font-weight:800;margin-bottom:18px}
+.sum-line{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px;gap:14px}
+.sum-line .k{color:var(--muted)}
+.sum-line .v{font-family:'Space Mono';text-align:right}
+.sum-total{display:flex;justify-content:space-between;margin-top:16px;font-family:'Archivo';font-weight:800;font-size:18px}
+.deposit-note{font-size:12.5px;color:var(--muted);margin-top:14px;line-height:1.5}
+.confirm{display:none;background:#fff5fb;border:1px solid var(--pink);border-radius:14px;padding:22px;margin-top:18px}
+.confirm.on{display:block}
+.confirm b{color:var(--pink-ink)}
+.dris{display:grid;grid-template-columns:.7fr 1.3fr;gap:40px;align-items:center}
+.dris .ph{aspect-ratio:1;min-height:0}
+.dris h2{font-size:clamp(24px,3vw,36px);font-weight:800;margin-bottom:14px}
+.dris p{color:var(--muted);font-size:16px;margin-bottom:18px}
+.steps{display:flex;gap:26px;flex-wrap:wrap;margin-top:6px}
+.stp{display:flex;gap:10px;align-items:baseline}
+.stp .n{font-family:'Space Mono';color:var(--pink);font-weight:700}
+.stp .x{font-size:14px}
+.ft{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-size:13px}
+.ft-in{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.ft img{height:20px;opacity:.9}
+.mbar{display:none}
+@media(max-width:920px){
+  .hero-grid,.split,.builder,.order-grid,.dris,.result .rec-grid{grid-template-columns:1fr}
+  .hero-media{order:-1}.hero-media img{max-height:360px}
+  .why-grid,.three{grid-template-columns:1fr}
+  .riders{grid-template-columns:repeat(2,1fr)}
+  .lvl-block,.bars{grid-template-columns:1fr}
+  .b-pic{position:static;aspect-ratio:16/10}
+  .opts{grid-template-columns:1fr}
+  .opts.optslim{display:flex}
+  .fields{grid-template-columns:1fr 1fr;max-width:none}
+}
+@media(max-width:560px){
+  .form-row{grid-template-columns:1fr}
+  .hdr .btn{display:none}
+  .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;padding:12px 16px;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-top:1px solid var(--line);gap:10px}
+  .mbar .btn{flex:1}
+  body{padding-bottom:70px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="wrap hdr-in">
+    <div class="brand"><img src="images/bilt-logo.png" alt="Bilt"><span data-c="brandTagline">MOROCCO</span></div>
+    <a href="#finder" class="btn btn-pink" data-c="heroCta1">Find my board</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow" data-c="heroEyebrow"></div>
+      <h1 data-c="heroHeadline"></h1>
+      <p class="lead" data-c="heroSub"></p>
+      <div class="hero-cta">
+        <a href="#finder" class="btn btn-pink" data-c="heroCta1"></a>
+        <a href="#three" class="btn btn-ghost" data-c="heroCta2"></a>
+      </div>
+      <div class="trust-row"><span data-c="trustA"></span><span data-c="trustB"></span><span data-c="trustC"></span></div>
+    </div>
+    <div class="hero-media">
+      <img src="images/double-double.jpg" alt="Bilt Double Double surfboard">
+      <span class="hero-tag" data-c="heroTag"></span>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow" data-c="whyEyebrow"></div>
+      <h2 data-c="whyHeading"></h2>
+      <p data-c="whySub"></p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-num">01</div><h3 data-c="why1h"></h3><p data-c="why1p"></p></div>
+      <div class="why-card"><div class="why-num">02</div><h3 data-c="why2h"></h3><p data-c="why2p"></p></div>
+      <div class="why-card"><div class="why-num">03</div><h3 data-c="why3h"></h3><p data-c="why3p"></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="wide" id="wideImg" role="img" aria-label="Surf photo"></section>
+
+<section class="sec" id="three">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow" data-c="threeEyebrow"></div>
+      <h2 data-c="threeHeading"></h2>
+      <p data-c="threeSub"></p>
+    </div>
+    <div class="three">
+      <div class="board"><div class="pic"><img src="images/big-mac.jpg" alt="Big Mac"></div>
+        <div class="body"><div class="kick" data-c="bigmacKick"></div><h3 data-c="bigmacName"></h3><p data-c="bigmacBlurb"></p><div class="spec" data-c="bigmacSpec"></div></div></div>
+      <div class="board"><div class="pic"><img src="images/whopper.jpg" alt="Whopper"></div>
+        <div class="body"><div class="kick" data-c="whopperKick"></div><h3 data-c="whopperName"></h3><p data-c="whopperBlurb"></p><div class="spec" data-c="whopperSpec"></div></div></div>
+      <div class="board"><div class="pic"><img src="images/double-double.jpg" alt="Double Double"></div>
+        <div class="body"><div class="kick" data-c="doubleKick"></div><h3 data-c="doubleName"></h3><p data-c="doubleBlurb"></p><div class="spec" data-c="doubleSpec"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--alt">
+  <div class="wrap">
+    <div class="split">
+      <div class="ph" style="aspect-ratio:4/5">[ Photo of Jason — placeholder ]</div>
+      <div>
+        <div class="eyebrow" data-c="buildsEyebrow"></div>
+        <h2 style="font-size:clamp(26px,3.4vw,40px);font-weight:800;margin-top:12px" data-c="buildsHeading"></h2>
+        <div class="craft-list">
+          <div><span class="k">SHAPER</span><span class="v" data-c="craftShaper"></span></div>
+          <div><span class="k">FOAM</span><span class="v" data-c="craftFoam"></span></div>
+          <div><span class="k">GLASS</span><span class="v" data-c="craftGlass"></span></div>
+        </div>
+        <div class="shaped"><div class="lbl" data-c="shapedLabel"></div><div class="logos" id="logos"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head"><div class="eyebrow" data-c="ridersEyebrow"></div><h2 data-c="ridersHeading"></h2></div>
+    <div class="riders" id="riders"></div>
+  </div>
+</section>
+
+<section class="sec sec--alt" id="finder">
+  <div class="wrap">
+    <div class="sec-head" style="text-align:center;margin:0 auto 34px">
+      <div class="eyebrow" data-c="finderEyebrow"></div>
+      <h2 data-c="finderHeading"></h2>
+      <p style="margin-left:auto;margin-right:auto" data-c="finderSub"></p>
+    </div>
+    <div class="finder" id="finderCard">
+      <div class="finder-top"><span class="step" id="stepLabel">Step 1 of 5</span><span class="progress"><i id="bar"></i></span></div>
+      <div class="finder-body" id="finderBody">
+        <div class="q on" data-q="0">
+          <h3>How would you rate your surfing?</h3><p class="sub">Be honest — it sets your volume.</p>
+          <div class="opts" data-group="ability">
+            <button class="opt" data-val="beginner"><span class="t">Beginner</span><span class="d">Still catching whitewater, learning to stand</span></button>
+            <button class="opt" data-val="improver"><span class="t">Improver</span><span class="d">Catching green waves, working on turns</span></button>
+            <button class="opt" data-val="intermediate"><span class="t">Intermediate</span><span class="d">Comfortable on most days, linking turns</span></button>
+            <button class="opt" data-val="advanced"><span class="t">Advanced</span><span class="d">Surfing critical parts of the wave</span></button>
+          </div>
+        </div>
+        <div class="q" data-q="1">
+          <h3>A bit about you.</h3><p class="sub">This sets the volume you need to float and paddle well.</p>
+          <div class="fields">
+            <div class="field"><label>Weight (kg)</label><input type="number" id="weight" min="30" max="160" placeholder="e.g. 75"></div>
+            <div class="field"><label>Height (cm)</label><input type="number" id="height" min="120" max="220" placeholder="e.g. 178"></div>
+          </div>
+        </div>
+        <div class="q" data-q="2">
+          <h3>A few more details.</h3><p class="sub">These fine-tune your volume.</p>
+          <div class="mini"><div class="mini-h">Age</div>
+            <div class="opts optslim" data-group="age">
+              <button class="opt slim" data-val="u30"><span class="t">Under 30</span></button>
+              <button class="opt slim" data-val="a30"><span class="t">30–45</span></button>
+              <button class="opt slim" data-val="a46"><span class="t">46–55</span></button>
+              <button class="opt slim" data-val="a56"><span class="t">56+</span></button>
+            </div>
+          </div>
+          <div class="mini"><div class="mini-h">Fitness</div>
+            <div class="opts optslim" data-group="fitness">
+              <button class="opt slim" data-val="high"><span class="t">High</span></button>
+              <button class="opt slim" data-val="avg"><span class="t">Average</span></button>
+              <button class="opt slim" data-val="low"><span class="t">Low</span></button>
+            </div>
+          </div>
+          <div class="mini"><div class="mini-h">How often you surf</div>
+            <div class="opts optslim" data-group="frequency">
+              <button class="opt slim" data-val="often"><span class="t">Weekly or more</span></button>
+              <button class="opt slim" data-val="monthly"><span class="t">A few times a month</span></button>
+              <button class="opt slim" data-val="rare"><span class="t">Now and then</span></button>
+            </div>
+          </div>
+        </div>
+        <div class="q" data-q="3">
+          <h3>What do you surf most?</h3><p class="sub">Think about your home break on an average day.</p>
+          <div class="opts" data-group="waves">
+            <button class="opt" data-val="small"><span class="t">Small &amp; soft</span><span class="d">Weak, mushy, waist-to-chest</span></button>
+            <button class="opt" data-val="average"><span class="t">Average beach breaks</span><span class="d">Fun, rolling, nothing heavy</span></button>
+            <button class="opt" data-val="punchy"><span class="t">Punchy &amp; steep</span><span class="d">Steeper faces, some power</span></button>
+            <button class="opt" data-val="everything"><span class="t">A bit of everything</span><span class="d">One board for all of it</span></button>
+          </div>
+        </div>
+        <div class="q" data-q="4">
+          <h3>What matters most to you?</h3><p class="sub">The feeling you want under your feet.</p>
+          <div class="opts" data-group="goal">
+            <button class="opt" data-val="paddle"><span class="t">Paddle power &amp; ease</span><span class="d">Catch everything, effortless glide</span></button>
+            <button class="opt" data-val="oneboard"><span class="t">One board for everything</span><span class="d">Versatile, all-round</span></button>
+            <button class="opt" data-val="performance"><span class="t">Performance &amp; response</span><span class="d">Sharp, quick, on the rail</span></button>
+          </div>
+        </div>
+        <div class="finder-nav">
+          <button class="link-btn" id="backBtn" style="visibility:hidden">← Back</button>
+          <button class="btn btn-dark" id="nextBtn" disabled>Next</button>
+        </div>
+      </div>
+      <div class="result" id="result">
+        <div class="banner" data-c="resultBanner"></div>
+        <h3 id="recName"></h3>
+        <div class="rec-grid">
+          <div class="rec-pic"><img id="recImg" src="images/double-double.jpg" alt=""></div>
+          <div>
+            <p class="rec-why" id="recWhy"></p>
+            <div class="rec-stamp"><span class="big" id="recDims"></span><span class="sm">Recommended size &amp; volume for you</span></div>
+            <div class="rec-actions">
+              <button class="btn btn-pink" id="toBuild" data-c="continueBtn"></button>
+              <button class="link-btn" id="restart">Start over</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="build">
+  <div class="wrap">
+    <div class="sec-head"><div class="eyebrow" data-c="buildEyebrow"></div><h2 data-c="buildHeading"></h2><p data-c="buildSub"></p></div>
+    <div class="builder">
+      <div class="b-pic" id="boardStage"></div>
+      <div>
+        <div class="b-block"><div class="lbl"><span class="t">Model</span></div>
+          <div class="model-row" id="modelRow">
+            <button class="chip" data-model="bigmac"><div class="cn">Big Mac</div><div class="cs">Shortboard</div></button>
+            <button class="chip" data-model="whopper"><div class="cn">Whopper</div><div class="cs">Fish</div></button>
+            <button class="chip" data-model="double"><div class="cn">Double Double</div><div class="cs">Mid-length</div></button>
+          </div>
+        </div>
+        <div class="b-block"><div class="lbl"><span class="t">Size</span><span class="v" id="volTag">— L</span></div><div class="sizes" id="sizeRow"></div></div>
+        <div class="b-block"><div class="lbl"><span class="t">Glassing</span></div><div class="glassrow" id="glassRow"></div></div>
+        <div class="b-block"><div class="lbl"><span class="t">Fin setup</span></div><div class="fins" id="finRow"></div></div>
+        <div class="b-block">
+          <div class="lbl"><span class="t">Colour</span><span class="v">any colour — deck, bottom, rails</span></div>
+          <div class="region"><div class="rl"><span class="t">Deck</span><input type="color" class="picker" id="pick-deck"></div><div class="swatches" id="sw-deck"></div></div>
+          <div class="region"><div class="rl"><span class="t">Bottom</span><input type="color" class="picker" id="pick-bottom"></div><div class="swatches" id="sw-bottom"></div></div>
+          <div class="region"><div class="rl"><span class="t">Rails</span><input type="color" class="picker" id="pick-rails"></div><div class="swatches" id="sw-rails"></div></div>
+        </div>
+        <div class="b-summary" id="buildSummary"></div>
+        <div style="margin-top:18px"><button class="btn btn-pink" id="toOrder" data-c="reserveBtn" style="width:100%"></button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--alt">
+  <div class="wrap">
+    <div class="sec-head"><div class="eyebrow" data-c="levelEyebrow"></div><h2 data-c="levelHeading"></h2><p data-c="levelSub"></p></div>
+    <div class="level" id="levelBlock"></div>
+  </div>
+</section>
+
+<section class="sec" id="order">
+  <div class="wrap">
+    <div class="sec-head"><div class="eyebrow" data-c="orderEyebrow"></div><h2 data-c="orderHeading"></h2><p data-c="orderSub"></p></div>
+    <div class="order-grid">
+      <form class="form" name="board-order" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="orderForm">
+        <input type="hidden" name="form-name" value="board-order">
+        <p style="display:none"><label>Don't fill this out: <input name="bot-field"></label></p>
+        <input type="hidden" name="spec" id="specField">
+        <div class="form-row">
+          <div class="field"><label>Full name</label><input name="name" required placeholder="Your name"></div>
+          <div class="field"><label>WhatsApp</label><input name="whatsapp" required placeholder="+212 ..."></div>
+        </div>
+        <div class="field full"><label>Email</label><input type="email" name="email" required placeholder="you@email.com"></div>
+        <div class="field full"><label>Anything to tell the shaper? (optional)</label><input name="notes" placeholder="Custom dims, questions..."></div>
+        <button type="submit" class="btn btn-pink" id="depositBtn" style="width:100%;margin-top:6px">Pay deposit</button>
+        <p class="deposit-note" id="depositNote"></p>
+        <div class="confirm" id="confirmBox"></div>
+      </form>
+      <div class="summary-card">
+        <h3>Your build</h3>
+        <div class="sum-line"><span class="k">Model</span><span class="v" id="sumModel">—</span></div>
+        <div class="sum-line"><span class="k">Size</span><span class="v" id="sumSize">—</span></div>
+        <div class="sum-line"><span class="k">Volume</span><span class="v" id="sumVol">—</span></div>
+        <div class="sum-line"><span class="k">Glassing</span><span class="v" id="sumGlass">—</span></div>
+        <div class="sum-line"><span class="k">Fin setup</span><span class="v" id="sumFin">—</span></div>
+        <div class="sum-line"><span class="k">Colour</span><span class="v" id="sumColor">—</span></div>
+        <div class="sum-total"><span>Total</span><span id="sumTotal">—</span></div>
+        <p class="deposit-note" id="summaryNote"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--alt">
+  <div class="wrap">
+    <div class="dris">
+      <div class="ph">[ Photo of Coach Dris — placeholder ]</div>
+      <div>
+        <div class="eyebrow" data-c="drisEyebrow"></div>
+        <h2 data-c="drisHeading"></h2>
+        <p data-c="drisBody"></p>
+        <div class="steps">
+          <div class="stp"><span class="n">01</span><span class="x" data-c="step1"></span></div>
+          <div class="stp"><span class="n">02</span><span class="x" data-c="step2"></span></div>
+          <div class="stp"><span class="n">03</span><span class="x" data-c="step3"></span></div>
+        </div>
+        <div style="margin-top:26px"><a href="#" class="btn btn-dark js-wa" data-c="drisCta"></a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="ft">
+  <div class="wrap ft-in"><img src="images/bilt-logo.png" alt="Bilt Morocco"><span data-c="footerText"></span></div>
+</footer>
+
+<div class="mbar"><a href="#finder" class="btn btn-pink" data-c="heroCta1"></a></div>
+
+<script src="content.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
