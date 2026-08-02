@@ -66,7 +66,7 @@ function hydrate(){
   const lg=document.getElementById('logos');
   if(lg)lg.innerHTML=C.shapedLogos.map(src=>'<span class="logo-img"><img src="'+src+'" alt=""></span>').join('');
   const rr=document.getElementById('riders');
-  if(rr)rr.innerHTML=C.riders.map(r=>'<div class="rider"><div class="av">[ photo ]</div><div class="nm">'+r.name+'</div><div class="rl">'+r.role+'</div></div>').join('');
+  if(rr)rr.innerHTML=C.riders.map(r=>'<div class="rider"><div class="av">'+(r.photo?'<img src="'+r.photo+'" alt="'+r.name+'">':'[ photo ]')+'</div><div class="nm">'+r.name+'</div><div class="rl">'+r.role+'</div></div>').join('');
   const wi=document.getElementById('wideImg');
   if(wi)wi.style.backgroundImage="url('"+ (C.wideImage||"images/wave.jpg") +"')";
   document.querySelectorAll('.js-wa').forEach(a=>a.href=C.whatsapp);

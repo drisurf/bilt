@@ -75,7 +75,10 @@ h1,h2,h3{font-family:'Archivo',sans-serif;line-height:1.04;letter-spacing:-.02em
 .logo-img img{height:34px;width:auto;display:block}
 .riders{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
 .rider{text-align:center}
-.rider .av{aspect-ratio:1;border-radius:14px;background:var(--bg2);border:1px dashed #d5d5d1;display:flex;align-items:center;justify-content:center;color:#b4b4b0;font-family:'Space Mono';font-size:11px;margin-bottom:12px}
+.rider .av{aspect-ratio:1;border-radius:14px;background:var(--bg2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:#b4b4b0;font-family:'Space Mono';font-size:11px;margin-bottom:12px;overflow:hidden}
+.rider .av img{width:100%;height:100%;object-fit:cover;display:block}
+.ph-photo{padding:0;overflow:hidden;border-style:solid;border-color:var(--line)}
+.ph-photo img{width:100%;height:100%;object-fit:cover;display:block}
 .rider .nm{font-weight:600;font-size:15px}
 .rider .rl{color:var(--muted);font-size:13px}
 .finder{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden}
@@ -294,7 +297,7 @@ h1,h2,h3{font-family:'Archivo',sans-serif;line-height:1.04;letter-spacing:-.02em
 <section class="sec sec--alt">
   <div class="wrap">
     <div class="split">
-      <div class="ph" style="aspect-ratio:4/5">[ Photo of Jason — placeholder ]</div>
+      <div class="ph ph-photo" style="aspect-ratio:4/5"><img src="images/jason.jpg" alt="Jason Ribbink"></div>
       <div>
         <div class="eyebrow" data-c="buildsEyebrow"></div>
         <h2 style="font-size:clamp(26px,3.4vw,40px);font-weight:800;margin-top:12px" data-c="buildsHeading"></h2>
@@ -484,7 +487,7 @@ h1,h2,h3{font-family:'Archivo',sans-serif;line-height:1.04;letter-spacing:-.02em
 <section class="sec sec--alt">
   <div class="wrap">
     <div class="dris">
-      <div class="ph">[ Photo of Abdel — placeholder ]</div>
+      <div class="ph ph-photo"><img src="images/abdel.jpg" alt="Abdel El Harim"></div>
       <div>
         <div class="eyebrow" data-c="drisEyebrow"></div>
         <h2 data-c="drisHeading"></h2>
