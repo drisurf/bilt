@@ -131,7 +131,7 @@ window.CONTENT = {
   /* ---- TESTIMONIAL (Coach Dris) — edit freely ---- */
   testiEyebrow: "From the water",
   testiHeading: "The best board I've ever ridden.",
-  testiQuote:   "For eight years I rode one board — a Christenson C-Bucket 7'0 — in everything from knee-high to double overhead. I'm a one-board-quiver surfer; I never want to sit out the back wishing I'd brought something else. When I decided it was time for a change, it took me almost a year and a lot of boards from big-name brands to find the one. The Bilt 6'10 Double Double was it — great paddle, catches everything, fast, and turns on a dime. It pushed me to train harder and surf better. After 25 years in the water, it felt like being in my early twenties again, starting something new.",
+  testiQuote:   "For eight years I rode one board — a Christenson C-Bucket 7'0 — in everything from knee-high to double overhead. I'm a one-board-quiver surfer; I never want to sit out the back wishing I'd brought something else. When I decided it was time for a change, it took me almost a year and a lot of boards from big-name brands to find the one. The Bilt 6'10 Double Double was it — great paddle, catches everything, fast, and turns on a dime. It pushed me to train harder and surf better, and my surfing has come on more than it has in years. After 25 years in the water, it felt like being in my early twenties again — and it's simply the best board I've ever ridden.",
   testiName:    "Coach Dris",
   testiRole:    "25 years surfing · Morocco",
 
