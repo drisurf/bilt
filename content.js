@@ -86,7 +86,7 @@ window.CONTENT = {
   /* ---- WHO BUILDS THEM (Jason) ---- */
   buildsEyebrow: "Who builds them",
   buildsHeading: "Shaped by hand. Built to last.",
-  craftShaper:   "<b>Jason</b> — [short bio placeholder]. Shapes for labels ridden worldwide; Bilt is his own brand.",
+  craftShaper:   "<b>Jason Ribbink</b> is a South African surfer, surfboard shaper, and accomplished waterman. A former South African Open Champion, ISA Team Captain, and World Longboard Championship runner up, he is known for his powerful surfing, big wave achievements, and decades of experience shaping high performance surfboards. He has shaped boards for labels ridden worldwide, while Bilt Surfboards remains his own signature brand.",
   craftFoam:     "Australian <b>Surfblanks</b>, the blank originally developed by the late Midget Farrelly.",
   craftGlass:    "<b>Hexel</b> fiberglass from Texas — light, strong, finished by hand.",
   shapedLabel:   "Jason also shapes for",
@@ -137,7 +137,7 @@ window.CONTENT = {
   /* ---- YOUR SECTION (Coach Dris) ---- */
   drisEyebrow: "Your guy in Morocco",
   drisHeading: "I ride these boards, and I stand behind every build.",
-  drisBody:    "Questions before you order? Message me directly — I'll help you dial in the right shape and size for how you surf. [Bio placeholder.]",
+  drisBody:    "Questions before you order? Message me directly — I'll help you dial in the right shape and size for how you surf. Abdel El Harim is a Moroccan professional surfer, coach, and surfing pioneer. A ten time Moroccan Champion, former WSL Qualifying Series competitor, and the first Moroccan invited to compete at the Pipeline Masters in Hawaii, he is recognized for helping establish Morocco on the international surfing stage. Today, he combines more than three decades of surfing experience with a passion for coaching and developing the next generation of surfers.",
   drisCta:     "Message me on WhatsApp",
   step1: "Order & deposit",
   step2: "Jason shapes your board",
@@ -162,7 +162,7 @@ window.CONTENT = {
   ],
 
   /* ---- FOOTER ---- */
-  footerText: "Bilt Morocco · custom surfboards · [contact placeholder]"
+  footerText: "Bilt Morocco · custom surfboards · copyright 2026"
 };
 
 /* ============================================================
