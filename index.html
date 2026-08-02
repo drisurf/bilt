@@ -211,8 +211,15 @@ h1,h2,h3{font-family:'Archivo',sans-serif;line-height:1.04;letter-spacing:-.02em
 .faq-a{max-height:0;overflow:hidden;transition:max-height .32s ease}
 .faq-item.open .faq-a{max-height:340px}
 .faq-a p{color:var(--muted);font-size:15.5px;padding:0 4px 24px;margin:0;max-width:66ch}
+.testi{max-width:940px;margin:0 auto;display:grid;grid-template-columns:.72fr 1.28fr;gap:38px;align-items:center;background:#fff5fb;border:1px solid #f7c9e6;border-radius:20px;padding:34px}
+.testi-photo{aspect-ratio:4/5;border-radius:16px;overflow:hidden;background:var(--bg2)}
+.testi-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.testi-quote .qmark{font-family:'Archivo';font-weight:900;font-size:56px;color:var(--pink);line-height:.4;height:30px}
+.testi-quote p{font-size:18.5px;line-height:1.6;color:var(--ink);margin:6px 0 18px}
+.testi-name{font-family:'Archivo';font-weight:800;font-size:16px}
+.testi-role{font-family:'Space Mono';font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:3px}
 @media(max-width:920px){
-  .hero-grid,.split,.builder,.order-grid,.dris,.result .rec-grid{grid-template-columns:1fr}
+  .hero-grid,.split,.builder,.order-grid,.dris,.result .rec-grid,.testi{grid-template-columns:1fr}
   .hero-media{order:-1}.hero-media img{max-height:360px}
   .why-grid,.three{grid-template-columns:1fr}
   .riders{grid-template-columns:repeat(2,1fr)}
@@ -448,6 +455,21 @@ h1,h2,h3{font-family:'Archivo',sans-serif;line-height:1.04;letter-spacing:-.02em
   <div class="wrap">
     <div class="sec-head"><div class="eyebrow" data-c="levelEyebrow"></div><h2 data-c="levelHeading"></h2><p data-c="levelSub"></p></div>
     <div class="level" id="levelBlock"></div>
+  </div>
+</section>
+
+<section class="sec" id="testimonial">
+  <div class="wrap">
+    <div class="sec-head" style="text-align:center;margin:0 auto 32px"><div class="eyebrow" data-c="testiEyebrow"></div><h2 data-c="testiHeading"></h2></div>
+    <div class="testi">
+      <div class="testi-photo"><img src="images/coach-dris.jpg" alt="Coach Dris"></div>
+      <div class="testi-quote">
+        <div class="qmark">&ldquo;</div>
+        <p data-c="testiQuote"></p>
+        <div class="testi-name" data-c="testiName"></div>
+        <div class="testi-role" data-c="testiRole"></div>
+      </div>
+    </div>
   </div>
 </section>
 

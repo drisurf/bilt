@@ -128,6 +128,13 @@ window.CONTENT = {
   levelHeading: "Ready to level up?",
   levelSub:     "Where your board shines, who it's for, and how it feels — at a glance.",
 
+  /* ---- TESTIMONIAL (Coach Dris) — edit freely ---- */
+  testiEyebrow: "From the water",
+  testiHeading: "The best board I've ever ridden.",
+  testiQuote:   "For eight years I rode one board — a Christenson C-Bucket 7'0 — in everything from knee-high to double overhead. I'm a one-board-quiver surfer; I never want to sit out the back wishing I'd brought something else. When I decided it was time for a change, it took me almost a year and a lot of boards from big-name brands to find the one. The Bilt 6'10 Double Double was it — great paddle, catches everything, fast, and turns on a dime. It pushed me to train harder and surf better. After 25 years in the water, it felt like being in my early twenties again, starting something new.",
+  testiName:    "Coach Dris",
+  testiRole:    "25 years surfing · Morocco",
+
   /* ---- RESERVE / ORDER ---- */
   orderEyebrow: "Reserve",
   orderHeading: "Reserve your build.",
@@ -138,7 +145,7 @@ window.CONTENT = {
   /* ---- YOUR SECTION (Coach Dris) ---- */
   drisEyebrow: "Your guy in Morocco",
   drisHeading: "I ride these boards, and I stand behind every build.",
-  drisBody:    "Questions before you order? Message me directly — I'll help you dial in the right shape and size for how you surf. <b>Abdel El Harim<b> is a Moroccan professional surfer, coach, and surfing pioneer. A ten time Moroccan Champion, former WSL Qualifying Series competitor, and the first Moroccan invited to compete at the Pipeline Masters in Hawaii, he is recognized for helping establish Morocco on the international surfing stage. Today, he combines more than three decades of surfing experience with a passion for coaching and developing the next generation of surfers.",
+  drisBody:    "Questions before you order? Message me directly — I'll help you dial in the right shape and size for how you surf. Abdel El Harim is a Moroccan professional surfer, coach, and surfing pioneer. A ten time Moroccan Champion, former WSL Qualifying Series competitor, and the first Moroccan invited to compete at the Pipeline Masters in Hawaii, he is recognized for helping establish Morocco on the international surfing stage. Today, he combines more than three decades of surfing experience with a passion for coaching and developing the next generation of surfers.",
   drisCta:     "Message me on WhatsApp",
   step1: "Order & deposit",
   step2: "Jason shapes your board",
@@ -175,6 +182,7 @@ window.CONTENT = {
      images/wave.jpg                 (the full-width surf photo)
      images/jason.jpg                (Jason's photo — "Who builds them")
      images/abdel.jpg                (Abdel's photo — "Your guy in Morocco")
+     images/coach-dris.jpg           (your photo — testimonial)
      images/riders/rider-1..5.jpg    (the rider photos)
      images/logos/…                  (the "shaped for" logos)
    ============================================================ */
