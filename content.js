@@ -103,9 +103,9 @@ window.CONTENT = {
   ridersHeading: "Ridden hard, from Morocco to the world.",
   /* Each rider has a photo — replace the file in /images/riders (keep the name) */
   riders: [
-    { name: "Abdel",    role: "Brand ambassador", photo: "images/riders/rider-1.jpg" },
-    { name: "Ayman",    role: "Team rider",        photo: "images/riders/rider-2.jpg" },
-    { name: "[ Name ]", role: "[ Placeholder ]",   photo: "images/riders/rider-3.jpg" },
+    { name: "Abdel El Harim",    role: "Brand ambassador", photo: "images/riders/rider-1.jpg" },
+    { name: "Ayman Gougali",    role: "Team rider",        photo: "images/riders/rider-2.jpg" },
+    { name: "Beyrick De Vries", role: "Team rider",   photo: "images/riders/rider-3.jpg" },
     { name: "[ Name ]", role: "[ Placeholder ]",   photo: "images/riders/rider-4.jpg" },
     { name: "[ Name ]", role: "[ Placeholder ]",   photo: "images/riders/rider-5.jpg" }
   ],
